@@ -12,6 +12,7 @@ class DateTimeNanosecondTest extends Unit {
   protected $tester;
 
   protected function _before() {
+    date_default_timezone_set('UTC');
   }
 
   protected function _after() {
@@ -24,7 +25,6 @@ class DateTimeNanosecondTest extends Unit {
   }
 
   public function testShouldExtendMicrosecondsToNanoseconds() {
-    $this->assertSame('UTC', date_default_timezone_get());
     $date_time_nanosecond = new DateTimeNanosecond('2021-12-23 23:34:45.123456');
     $this->assertSame(
       'O:36:"CjDennis\DateTime\DateTimeNanosecond":3:{s:4:"date";s:29:"2021-12-23 23:34:45.123456000";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}',
@@ -33,7 +33,6 @@ class DateTimeNanosecondTest extends Unit {
   }
 
   public function testShouldCreateADateTimeNanosecondObjectWithNanosecondsSpecified() {
-    $this->assertSame('UTC', date_default_timezone_get());
     $date_time_nanosecond = new DateTimeNanosecond('2021-12-23 23:34:45.123456789');
     $this->assertSame(
       'O:36:"CjDennis\DateTime\DateTimeNanosecond":3:{s:4:"date";s:29:"2021-12-23 23:34:45.123456789";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}',
