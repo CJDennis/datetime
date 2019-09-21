@@ -22,9 +22,9 @@ class DateTimeNanosecond extends DateTime {
       $fractional_seconds = (float)($match[2] . $match[3]);
     }
 
-    $date = new parent($time, $timezone);
-    $this->hidden_value($date);
-    foreach ((array)$date as $name => $value) {
+    $date_time = new parent($time, $timezone);
+    $this->hidden_value($date_time);
+    foreach ((array)$date_time as $name => $value) {
       $this->$name = $value;
     }
 
