@@ -39,4 +39,9 @@ class DateTimeNanosecondTest extends Unit {
       serialize($date_time_nanosecond)
     );
   }
+
+  public function testShouldUseTheCorrectFormatWhenCreatingADateTimeNanosecondObjectAutomatically() {
+    $date_time_nanosecond = new DateTimeNanosecond('now');
+    $this->assertRegExp('/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d{9}$/', ((array)$date_time_nanosecond)['date']);
+  }
 }
