@@ -44,4 +44,9 @@ class DateTimeNanosecondTest extends Unit {
     $date_time_nanosecond = new DateTimeNanosecond('now');
     $this->assertRegExp('/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d{9}$/', ((array)$date_time_nanosecond)['date']);
   }
+
+  public function testShouldTruncateToNineDecimalPlacesWhenASingleExtraDigitIsSupplied() {
+    $date_time_nanosecond = new DateTimeNanosecond('2021-12-23 23:34:45.0123456789');
+    $this->assertSame('2021-12-23 23:34:45.012345678', ((array)$date_time_nanosecond)['date']);
+  }
 }
