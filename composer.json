@@ -1,0 +1,11 @@
+{
+    "name": "cjdennis/datetime",
+    "description": "DateTime with mocking for nanoseconds",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"CjDennis\\DateTime\\": "src/CjDennis/DateTime/"}
+    }
+}
