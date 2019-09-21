@@ -13,7 +13,7 @@ class DateTimeNanosecond extends DateTime {
 
   /** @noinspection PhpMissingParentConstructorInspection */
   public function __construct($time = 'now', DateTimeZone $timezone = null) {
-    static $fractional_seconds_pattern = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,2}(?!\d))(.*)/';
+    static $fractional_seconds_pattern = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,3}(?!\d))(.*)/';
     $match = null;
 
     $matched = preg_match($fractional_seconds_pattern, $time, $match);
@@ -32,7 +32,11 @@ class DateTimeNanosecond extends DateTime {
       preg_match($fractional_seconds_pattern, $this->date, $match);
       $fractional_seconds = (float)($match[2] . $match[3]);
     }
-    $this->date = sprintf('%s%11.9f%s', $match[1], $fractional_seconds, $match[4]);
+    $this->date = sprintf('%s%11.9f%s', $match[1], $this->round($fractional_seconds, 10, 9), $match[4]);
+  }
+
+  protected function round($value, int $old_precision = 0, int $new_precision = 0) {
+    return floor(round($value * pow(10, $old_precision)) / pow(10, $old_precision - $new_precision)) / pow(10, $new_precision);
   }
 
   public function hidden_value() {
