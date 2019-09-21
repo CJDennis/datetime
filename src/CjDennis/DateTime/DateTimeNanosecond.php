@@ -39,7 +39,7 @@ class DateTimeNanosecond extends DateTime {
     return floor(round($value * pow(10, $old_precision)) / pow(10, $old_precision - $new_precision)) / pow(10, $new_precision);
   }
 
-  public function hidden_value() {
+  protected function hidden_value() {
     static $keys = [];
     static $values = [];
 
