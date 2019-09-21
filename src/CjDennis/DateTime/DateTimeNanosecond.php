@@ -39,6 +39,13 @@ class DateTimeNanosecond extends DateTime {
     return floor(round($value * pow(10, $old_precision)) / pow(10, $old_precision - $new_precision)) / pow(10, $new_precision);
   }
 
+  public function __wakeup() {
+    $date_time_properties = (array)$this;
+    $date_time_properties['date'] = preg_replace('/(?<=\d\.\d{6})\d*/', '', $date_time_properties['date']);
+    $date_time = parent::__set_state($date_time_properties);
+    $this->hidden_value($date_time);
+  }
+
   protected function hidden_value() {
     static $keys = [];
     static $values = [];
