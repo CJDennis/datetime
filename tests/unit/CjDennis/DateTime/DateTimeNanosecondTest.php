@@ -72,4 +72,14 @@ class DateTimeNanosecondTest extends Unit {
     $date_time_nanosecond_2 = new DateTimeNanosecond();
     $this->assertInstanceOf(DateTimeNanosecondInterval::class, $date_time_nanosecond_1->diff($date_time_nanosecond_2));
   }
+
+  public function testShouldGetAOneNanosecondDifference() {
+    $date_time_nanosecond_1 = new DateTimeNanosecond('2001-01-01 01:01:01.000000001');
+    $date_time_nanosecond_2 = new DateTimeNanosecond('2001-01-01 01:01:01.000000002');
+    $date_time_nanosecond_interval = $date_time_nanosecond_1->diff($date_time_nanosecond_2);
+    // This is reliable because
+    // private const PHPUnit\Framework\Constraint\IsIdentical::EPSILON = 0.0000000001
+    // (10^-10) for floats, and nanoseconds only go down to 10^-9
+    $this->assertSame(0.000000001, $date_time_nanosecond_interval->f);
+  }
 }
