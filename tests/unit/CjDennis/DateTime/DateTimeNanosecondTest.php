@@ -56,4 +56,9 @@ class DateTimeNanosecondTest extends Unit {
       ((array)unserialize('O:36:"CjDennis\DateTime\DateTimeNanosecond":3:{s:4:"date";s:29:"2021-12-23 23:34:45.123456789";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}'))['date']
     );
   }
+
+  public function testShouldFormatADateTimeNanosecondWithMilliseconds() {
+    $date_time_nanosecond = new DateTimeNanosecond('12:34:56.123456789');
+    $this->assertSame('56.123456', $date_time_nanosecond->format('s.u'));
+  }
 }
