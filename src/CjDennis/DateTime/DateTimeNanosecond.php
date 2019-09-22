@@ -4,7 +4,7 @@ namespace CjDennis\DateTime;
 use DateTime;
 use DateTimeZone;
 
-class DateTimeNanosecond extends DateTime {
+class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface {
   public $date;
   public /** @noinspection PhpUnused */
     $timezone_type;
@@ -47,6 +47,12 @@ class DateTimeNanosecond extends DateTime {
   }
 
   public function format($format) {
+    $format = preg_replace_callback('/\G(?:\\\\[\s\S]|[^\\\\])/u', function ($match) {
+      if ($match[0] === static::FORMAT_NANOSECOND) {
+        $match[0] = (string)(preg_replace('/^.*(\.\d{1,9})/', '$1', $this->date) * 1000000000);
+      }
+      return $match[0];
+    }, $format);
     $date_time = $this->hidden_value();
     return $date_time->format($format);
   }

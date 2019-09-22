@@ -64,6 +64,6 @@ class DateTimeNanosecondTest extends Unit {
 
   public function testShouldFormatADateTimeNanosecondWithNanoseconds() {
     $date_time_nanosecond = new DateTimeNanosecond('12:34:56.123456789');
-    $this->assertSame('56.123456789', $date_time_nanosecond->format('s.X'));
+    $this->assertSame('56.123456789', $date_time_nanosecond->format('s.' . DateTimeNanosecond::FORMAT_NANOSECOND));
   }
 }
