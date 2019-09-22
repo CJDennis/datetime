@@ -46,6 +46,11 @@ class DateTimeNanosecond extends DateTime {
     $this->hidden_value($date_time);
   }
 
+  public function format($format) {
+    $date_time = $this->hidden_value();
+    return $date_time->format($format);
+  }
+
   protected function hidden_value() {
     static $keys = [];
     static $values = [];
