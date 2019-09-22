@@ -57,6 +57,10 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     return $date_time->format($format);
   }
 
+  public function diff($datetime2, $absolute = false) {
+    return new DateTimeNanosecondInterval();
+  }
+
   protected function hidden_value() {
     static $keys = [];
     static $values = [];
