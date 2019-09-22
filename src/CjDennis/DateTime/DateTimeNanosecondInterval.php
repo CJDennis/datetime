@@ -1,5 +1,10 @@
 <?php
 namespace CjDennis\DateTime;
 
-class DateTimeNanosecondInterval {
+use DateInterval;
+
+class DateTimeNanosecondInterval extends DateInterval {
+  public function __construct($interval_spec) {
+    parent::__construct($interval_spec);
+  }
 }
