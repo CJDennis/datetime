@@ -8,6 +8,9 @@ use DateTimeZone;
 class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface {
   use HiddenValue;
 
+  protected const FRACTIONAL_SECONDS_PATTERN = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,3}(?!\d))(.*)/';
+  protected const NANOSECONDS = 1000000000;
+
   public $date;
   public /** @noinspection PhpUnused */
     $timezone_type;
@@ -16,13 +19,11 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
 
   /** @noinspection PhpMissingParentConstructorInspection */
   public function __construct($time = 'now', DateTimeZone $timezone = null) {
-    static $fractional_seconds_pattern = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,3}(?!\d))(.*)/';
     $match = null;
 
-    $matched = preg_match($fractional_seconds_pattern, $time, $match);
+    $matched = preg_match(static::FRACTIONAL_SECONDS_PATTERN, $time, $match);
     if ($matched) {
       $time = $match[1] . $match[2] . $match[4];
-      $fractional_seconds = (float)($match[2] . $match[3]);
     }
 
     $date_time = new parent($time, $timezone);
@@ -32,9 +33,10 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     }
 
     if (!$matched) {
-      preg_match($fractional_seconds_pattern, $this->date, $match);
-      $fractional_seconds = (float)($match[2] . $match[3]);
+      preg_match(static::FRACTIONAL_SECONDS_PATTERN, $this->date, $match);
     }
+
+    $fractional_seconds = (float)($match[2] . $match[3]);
     $this->date = sprintf('%s%11.9f%s', $match[1], $this->round($fractional_seconds, 10, 9), $match[4]);
   }
 
@@ -52,15 +54,40 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
   public function format($format) {
     $format = preg_replace_callback('/\G(?:\\\\[\s\S]|[^\\\\])/u', function ($match) {
       if ($match[0] === static::FORMAT_NANOSECOND) {
-        $match[0] = (string)(preg_replace('/^.*(\.\d{1,9})/', '$1', $this->date) * 1000000000);
+        $match[0] = (string)$this->nanoseconds();
       }
       return $match[0];
     }, $format);
+    /** @var parent $date_time */
+    /** @var DateTime $date_time */
     $date_time = $this->hidden_value();
     return $date_time->format($format);
   }
 
   public function diff($datetime2, $absolute = false) {
-    return new DateTimeNanosecondInterval('P1D');
+    $nano_1 = $this->nanoseconds();
+    /** @var DateTimeNanosecond $datetime2 */
+    $nano_2 = $datetime2->nanoseconds();
+    $nano_diff = $nano_2 - $nano_1;
+
+    /** @var DateTime $self_date_time */
+    $self_date_time = $this->hidden_value();
+    /** @var DateTime $date_time_2 */
+    $date_time_2 = clone $datetime2->hidden_value();
+    if ($nano_diff < 0) {
+      $date_time_2->modify('+1 second');
+      $nano_diff = static::NANOSECONDS - $nano_diff;
+    }
+    $date_interval = $self_date_time->diff($date_time_2);
+
+    $date_interval_properties = (array)$date_interval;
+    /** @var DateTimeNanosecondInterval $date_time_nanosecond_interval */
+    $date_time_nanosecond_interval = DateTimeNanosecondInterval::__set_state($date_interval_properties);
+    $date_time_nanosecond_interval->f = $nano_diff / static::NANOSECONDS;
+    return $date_time_nanosecond_interval;
+  }
+
+  protected function nanoseconds() {
+    return preg_replace('/^.*(\.\d{1,9})/', '$1', $this->date) * static::NANOSECONDS;
   }
 }
