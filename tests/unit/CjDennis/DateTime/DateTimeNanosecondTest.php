@@ -66,4 +66,10 @@ class DateTimeNanosecondTest extends Unit {
     $date_time_nanosecond = new DateTimeNanosecond('12:34:56.123456789');
     $this->assertSame('56.123456789', $date_time_nanosecond->format('s.' . DateTimeNanosecond::FORMAT_NANOSECOND));
   }
+
+  public function testShouldReturnADateTimeNanosecondIntervalWhenGettingTheDifferenceOfTwoDateTimeNanosecondObjects() {
+    $date_time_nanosecond_1 = new DateTimeNanosecond();
+    $date_time_nanosecond_2 = new DateTimeNanosecond();
+    $this->assertInstanceOf(DateTimeNanosecondInterval::class, $date_time_nanosecond_1->diff($date_time_nanosecond_2));
+  }
 }
