@@ -1,10 +1,13 @@
 <?php
 namespace CjDennis\DateTime;
 
+use CjDennis\HiddenValue\HiddenValue;
 use DateTime;
 use DateTimeZone;
 
 class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface {
+  use HiddenValue;
+
   public $date;
   public /** @noinspection PhpUnused */
     $timezone_type;
@@ -23,7 +26,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     }
 
     $date_time = new parent($time, $timezone);
-    $this->hidden_value($date_time);
+    $this->hidden_value(null, $date_time);
     foreach ((array)$date_time as $name => $value) {
       $this->$name = $value;
     }
@@ -43,7 +46,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     $date_time_properties = (array)$this;
     $date_time_properties['date'] = preg_replace('/(?<=\d\.\d{6})\d*/', '', $date_time_properties['date']);
     $date_time = parent::__set_state($date_time_properties);
-    $this->hidden_value($date_time);
+    $this->hidden_value(null, $date_time);
   }
 
   public function format($format) {
@@ -59,29 +62,5 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
 
   public function diff($datetime2, $absolute = false) {
     return new DateTimeNanosecondInterval('P1D');
-  }
-
-  protected function hidden_value() {
-    static $keys = [];
-    static $values = [];
-
-    $key = array_search($this, $keys, true);
-    $value = null;
-    if (func_num_args() === 0) {
-      if ($key !== false) {
-        $value = $values[$key];
-      }
-    }
-    else {
-      $value = func_get_arg(0);
-      if ($key !== false) {
-        $values[$key] = func_get_arg(0);
-      }
-      else {
-        $keys[] = $this;
-        $values[] = $value;
-      }
-    }
-    return $value;
   }
 }

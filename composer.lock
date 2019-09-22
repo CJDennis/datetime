@@ -1,0 +1,47 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "8376fa494c56099e631619f98ba2eeb4",
+    "packages": [
+        {
+            "name": "cjdennis/hidden-value",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CJDennis/hidden-value.git",
+                "reference": "b288c5403e1ead2d9eeaa596245f3a7b4b9636f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CJDennis/hidden-value/zipball/b288c5403e1ead2d9eeaa596245f3a7b4b9636f0",
+                "reference": "b288c5403e1ead2d9eeaa596245f3a7b4b9636f0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CjDennis\\HiddenValue\\": "src/CjDennis/HiddenValue/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Allows storing pseudo class properties as values that are not dumpable, serialisable, or accessible from child classes",
+            "time": "2019-09-22T09:15:40+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "cjdennis/hidden-value": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

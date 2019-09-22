@@ -4,7 +4,9 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "cjdennis/hidden-value": "dev-master"
+    },
     "autoload": {
         "psr-4": {"CjDennis\\DateTime\\": "src/CjDennis/DateTime/"}
     }
