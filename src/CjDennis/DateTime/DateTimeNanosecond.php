@@ -74,7 +74,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     $this_date = new DateTime($this->whole_second_date_time());
     /** @noinspection PhpUnhandledExceptionInspection */
     $other_date = new DateTime($datetime2->whole_second_date_time());
-    $invert_result = false;
+    $invert_result = null;
     if ($this_date < $other_date) {
       if ($nano_diff < 0) {
         $this_date->modify('+1 second');
@@ -87,7 +87,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     else {
       if ($nano_diff < 0) {
         $nano_diff = -$nano_diff;
-        $invert_result = true;
+        $invert_result = 1;
       }
     }
     $date_interval = $this_date->diff($other_date);
@@ -96,8 +96,8 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     /** @var DateTimeNanosecondInterval $date_time_nanosecond_interval */
     $date_time_nanosecond_interval = DateTimeNanosecondInterval::__set_state($date_interval_properties);
     $date_time_nanosecond_interval->f = $nano_diff / static::NANOSECONDS;
-    if ($invert_result) {
-      $date_time_nanosecond_interval->invert = 1;
+    if ($invert_result !== null) {
+      $date_time_nanosecond_interval->invert = $invert_result;
     }
 
     return $date_time_nanosecond_interval;
