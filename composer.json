@@ -9,5 +9,8 @@
     },
     "autoload": {
         "psr-4": {"CjDennis\\DateTime\\": "src/CjDennis/DateTime/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"CjDennis\\DateTime\\": "tests/unit/CjDennis/DateTime/"}
     }
 }
