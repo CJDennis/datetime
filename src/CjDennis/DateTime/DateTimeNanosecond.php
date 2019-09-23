@@ -70,24 +70,41 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     $nano_2 = $datetime2->nanoseconds();
     $nano_diff = $nano_2 - $nano_1;
 
-    /** @var DateTime $self_date_time */
-    $self_date_time = $this->hidden_value();
-    /** @var DateTime $date_time_2 */
-    $date_time_2 = clone $datetime2->hidden_value();
-    if ($nano_diff < 0) {
-      $date_time_2->modify('+1 second');
-      $nano_diff = static::NANOSECONDS - $nano_diff;
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $this_date = new DateTime($this->whole_second_date_time());
+    /** @noinspection PhpUnhandledExceptionInspection */
+    $other_date = new DateTime($datetime2->whole_second_date_time());
+    $invert_result = false;
+    if ($this_date < $other_date) {
+      ;
     }
-    $date_interval = $self_date_time->diff($date_time_2);
+    elseif ($this_date > $other_date) {
+      ;
+    }
+    else {
+      if ($nano_diff < 0) {
+        $nano_diff = -$nano_diff;
+        $invert_result = true;
+      }
+    }
+    $date_interval = $this_date->diff($other_date);
 
     $date_interval_properties = (array)$date_interval;
     /** @var DateTimeNanosecondInterval $date_time_nanosecond_interval */
     $date_time_nanosecond_interval = DateTimeNanosecondInterval::__set_state($date_interval_properties);
     $date_time_nanosecond_interval->f = $nano_diff / static::NANOSECONDS;
+    if ($invert_result) {
+      $date_time_nanosecond_interval->invert = 1;
+    }
+
     return $date_time_nanosecond_interval;
   }
 
   protected function nanoseconds() {
     return preg_replace('/^.*(\.\d{1,9})/', '$1', $this->date) * static::NANOSECONDS;
+  }
+
+  protected function whole_second_date_time() {
+    return preg_replace('/^(.*)\.\d{1,9}/', '$1', $this->date) . " {$this->timezone}";
   }
 }
