@@ -111,4 +111,17 @@ class DateTimeNanosecondTest extends Unit {
     $invert = '0';
     $this->assertSame('O:' . $len . ':"' . $fully_qualified_name . '":16:{s:1:"y";i:0;s:1:"m";i:0;s:1:"d";i:0;s:1:"h";i:0;s:1:"i";i:0;s:1:"s";i:' . $s . ';s:1:"f";d:' . $f . ';s:7:"weekday";i:0;s:16:"weekday_behavior";i:0;s:17:"first_last_day_of";i:0;s:6:"invert";i:' . $invert . ';s:4:"days";i:0;s:12:"special_type";i:0;s:14:"special_amount";i:0;s:21:"have_weekday_relative";i:0;s:21:"have_special_relative";i:0;}', serialize($date_time_nanosecond_interval));
   }
+
+  public function testShouldGetAOneNanosecondLessThanOneSecondDifference() {
+    $date_time_nanosecond_1 = new DateTimeNanosecond('2001-01-01 01:01:01.000000002');
+    $date_time_nanosecond_2 = new DateTimeNanosecond('2001-01-01 01:01:02.000000001');
+    $date_time_nanosecond_interval = $date_time_nanosecond_1->diff($date_time_nanosecond_2);
+
+    $fully_qualified_name = DateTimeNanosecondInterval::class;
+    $len = strlen($fully_qualified_name);
+    $s = '0';
+    $f = '0.999999999';
+    $invert = '0';
+    $this->assertSame('O:' . $len . ':"' . $fully_qualified_name . '":16:{s:1:"y";i:0;s:1:"m";i:0;s:1:"d";i:0;s:1:"h";i:0;s:1:"i";i:0;s:1:"s";i:' . $s . ';s:1:"f";d:' . $f . ';s:7:"weekday";i:0;s:16:"weekday_behavior";i:0;s:17:"first_last_day_of";i:0;s:6:"invert";i:' . $invert . ';s:4:"days";i:0;s:12:"special_type";i:0;s:14:"special_amount";i:0;s:21:"have_weekday_relative";i:0;s:21:"have_special_relative";i:0;}', serialize($date_time_nanosecond_interval));
+  }
 }
