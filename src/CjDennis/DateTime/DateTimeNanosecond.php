@@ -76,7 +76,10 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     $other_date = new DateTime($datetime2->whole_second_date_time());
     $invert_result = false;
     if ($this_date < $other_date) {
-      ;
+      if ($nano_diff < 0) {
+        $this_date->modify('+1 second');
+        $nano_diff += static::NANOSECONDS;
+      }
     }
     elseif ($this_date > $other_date) {
       ;
