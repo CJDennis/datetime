@@ -82,9 +82,14 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
       }
     }
     elseif ($this_date > $other_date) {
-      $other_date->modify('+1 second');
-      $nano_diff = static::NANOSECONDS - $nano_diff;
-      $invert_result = 1;
+      if ($nano_diff < 0) {
+        $nano_diff = -$nano_diff;
+      }
+      else {
+        $other_date->modify('+1 second');
+        $nano_diff = static::NANOSECONDS - $nano_diff;
+        $invert_result = 1;
+      }
     }
     else {
       if ($nano_diff < 0) {
