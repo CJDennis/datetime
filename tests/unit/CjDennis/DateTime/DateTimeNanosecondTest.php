@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedClassInspection */
 namespace CjDennis\DateTime;
 
 use Codeception\Test\Unit;
