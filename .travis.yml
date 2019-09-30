@@ -7,7 +7,7 @@ install: composer update
 
 script:
   - vendor/bin/codecept run unit --coverage-xml=../../coverage.xml
-  - vendor/bin/infection --min-covered-msi=90 --min-msi=90
+  - vendor/bin/infection --min-covered-msi=75 --min-msi=50
   - bash <(curl -s https://codecov.io/bash) -c -F unittests
 
 env:
