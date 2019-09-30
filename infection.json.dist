@@ -1,0 +1,17 @@
+{
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src\/CjDennis\/DateTime\/"
+        ]
+    },
+    "logs": {
+        "badge": {
+            "branch": "master"
+        },
+        "text": "infection.log"
+    },
+    "mutators": {
+        "@default": true
+    }
+}

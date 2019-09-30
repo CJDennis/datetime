@@ -11,6 +11,10 @@
         "psr-4": {"CjDennis\\DateTime\\": "src/CjDennis/DateTime/"}
     },
     "autoload-dev": {
-        "psr-4": {"CjDennis\\DateTime\\": "tests/unit/CjDennis/DateTime/"}
+        "psr-4": {"CjDennis\\DateTime\\": "tests-common/unit/CjDennis/DateTime/"}
+    },
+    "require-dev": {
+        "codeception/codeception": "3.1.1",
+        "infection/infection": "0.14.1"
     }
 }

@@ -1,16 +1,9 @@
-<?php /** @noinspection PhpUndefinedClassInspection */
+<?php
 namespace CjDennis\DateTime;
 
-use Codeception\Test\Unit;
 use DateTime;
-use UnitTester;
 
-class DateTimeNanosecondTest extends Unit {
-  /**
-   * @var UnitTester
-   */
-  protected $tester;
-
+trait DateTimeNanosecondTestCommon {
   protected function _before() {
     date_default_timezone_set('UTC');
   }
