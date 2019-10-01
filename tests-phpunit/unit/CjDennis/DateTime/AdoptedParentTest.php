@@ -3,8 +3,8 @@ namespace CjDennis\DateTime;
 
 use PHPUnit\Framework\TestCase;
 
-/** @covers \CjDennis\DateTime\DateTimeNanosecondInterval */
-class DateTimeNanosecondIntervalTest extends TestCase {
+/** @covers \CjDennis\DateTime\AdoptedParent */
+class AdoptedParentTest extends TestCase {
   protected function setUp(): void {
     $this->_before();
   }
@@ -13,5 +13,5 @@ class DateTimeNanosecondIntervalTest extends TestCase {
     $this->_after();
   }
 
-  use DateTimeNanosecondIntervalTestCommon;
+  use AdoptedParentTestCommon;
 }

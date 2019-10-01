@@ -7,6 +7,7 @@ use DateTimeZone;
 
 class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface {
   use HiddenValue;
+  use AdoptedParent;
 
   protected const FRACTIONAL_SECONDS_PATTERN = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,3}(?!\d))(.*)/';
   protected const NANOSECONDS = 1000000000;
@@ -26,11 +27,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
       $time = $match[1] . $match[2] . $match[4];
     }
 
-    $date_time = new parent($time, $timezone);
-    $this->hidden_value(null, $date_time);
-    foreach ((array)$date_time as $name => $value) {
-      $this->$name = $value;
-    }
+    $this->adopt_parent(...func_get_args());
 
     if (!$matched) {
       preg_match(static::FRACTIONAL_SECONDS_PATTERN, $this->date, $match);
@@ -41,7 +38,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
   }
 
   protected function round($value, int $old_precision = 0, int $new_precision = 0) {
-    return floor(round($value * pow(10, $old_precision)) / pow(10, $old_precision - $new_precision)) / pow(10, $new_precision);
+    return floor(round($value * pow(10, $old_precision)) * pow(10, $new_precision - $old_precision)) / pow(10, $new_precision);
   }
 
   public function __wakeup() {

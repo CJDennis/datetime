@@ -6,6 +6,7 @@ use DateInterval;
 
 class DateTimeNanosecondInterval extends DateInterval {
   use HiddenValue;
+  use AdoptedParent;
 
   public $y;  // year
   public $m;  // month
@@ -29,11 +30,7 @@ class DateTimeNanosecondInterval extends DateInterval {
 
   /** @noinspection PhpMissingParentConstructorInspection */
   public function __construct($interval_spec) {
-    $date_interval = new parent($interval_spec);
-    $this->hidden_value(null, $date_interval);
-    foreach ((array)$date_interval as $name => $value) {
-      $this->$name = $value;
-    }
+    $this->adopt_parent(...func_get_args());
   }
 
   public static function __set_state($properties) {

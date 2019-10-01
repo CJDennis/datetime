@@ -4,11 +4,11 @@ namespace CjDennis\DateTime;
 use Codeception\Test\Unit;
 use UnitTester;
 
-class DateTimeNanosecondIntervalTest extends Unit {
+class AdoptedParentTest extends Unit {
   /**
    * @var UnitTester
    */
   protected $tester;
 
-  use DateTimeNanosecondIntervalTestCommon;
+  use AdoptedParentTestCommon;
 }

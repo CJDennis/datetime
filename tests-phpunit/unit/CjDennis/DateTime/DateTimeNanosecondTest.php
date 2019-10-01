@@ -3,7 +3,10 @@ namespace CjDennis\DateTime;
 
 use PHPUnit\Framework\TestCase;
 
-/** @covers \CjDennis\DateTime\DateTimeNanosecond */
+/**
+ * @covers \CjDennis\DateTime\DateTimeNanosecond
+ * @uses \CjDennis\DateTime\DateTimeNanosecondInterval
+ */
 class DateTimeNanosecondTest extends TestCase {
   protected function setUp(): void {
     $this->_before();

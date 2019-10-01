@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnused */
 namespace CjDennis\DateTime;
 
 use DateTime;
@@ -142,5 +143,43 @@ trait DateTimeNanosecondTestCommon {
     $f = '1.0E-9';
     $invert = '1';
     $this->assertSame('O:' . $len . ':"' . $fully_qualified_name . '":16:{s:1:"y";i:0;s:1:"m";i:0;s:1:"d";i:0;s:1:"h";i:0;s:1:"i";i:0;s:1:"s";i:' . $s . ';s:1:"f";d:' . $f . ';s:7:"weekday";i:0;s:16:"weekday_behavior";i:0;s:17:"first_last_day_of";i:0;s:6:"invert";i:' . $invert . ';s:4:"days";i:0;s:12:"special_type";i:0;s:14:"special_amount";i:0;s:21:"have_weekday_relative";i:0;s:21:"have_special_relative";i:0;}', serialize($date_time_nanosecond_interval));
+  }
+
+  public function testShouldRoundHalfUp() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
+    $this->assertSame(2.0, $date_time_nanosecond_seam->round_seam(1.5));
+  }
+
+  public function testShouldRoundBelowHalfDown() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
+    $this->assertSame(1.0, $date_time_nanosecond_seam->round_seam(1.499999));
+  }
+
+  public function testShouldRoundOneDecimalPlaceUpThenFloorToZeroDecimalPlaces() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
+    $this->assertSame(1.0, $date_time_nanosecond_seam->round_seam(1.899999, 1));
+  }
+
+  public function testShouldGetTheNanosecondsFromADateTimeNanosecondObject() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam('2021-12-23 23:34:45.123456789');
+    $this->assertSame(123456789.0, $date_time_nanosecond_seam->nanoseconds_seam());
+  }
+
+  public function testShouldTruncateTheNanosecondsToNineDecimalPlacesWhenCreatingADateTimeNanosecondObject() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam('2021-12-23 23:34:45.1234567899');
+    $this->assertSame(123456789.0, $date_time_nanosecond_seam->nanoseconds_seam());
+  }
+
+  public function testShouldSerialiseAnUnserialisedDateTimeNanosecondObject() {
+    $date_time_nanosecond = new DateTimeNanosecond('2021-12-23 23:34:45.123456789');
+    $this->assertSame(
+      'O:36:"CjDennis\DateTime\DateTimeNanosecond":3:{s:4:"date";s:29:"2021-12-23 23:34:45.123456789";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}',
+      serialize($date_time_nanosecond)
+    );
+  }
+
+  public function testShouldWholeSeconds() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam('2021-12-23 23:34:45.1234567899');
+    $this->assertSame('2021-12-23 23:34:45 UTC', $date_time_nanosecond_seam->whole_second_date_time_seam());
   }
 }
