@@ -33,7 +33,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
       preg_match(static::FRACTIONAL_SECONDS_PATTERN, $this->date, $match);
     }
 
-    $fractional_seconds = (float)($match[2] . $match[3]);
+    $fractional_seconds = $match[2] . $match[3];
     $this->date = sprintf('%s%11.9f%s', $match[1], $this->round($fractional_seconds, 10, 9), $match[4]);
   }
 
@@ -51,7 +51,7 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
   public function format($format) {
     $format = preg_replace_callback('/\G(?:\\\\[\s\S]|[^\\\\])/u', function ($match) {
       if ($match[0] === static::FORMAT_NANOSECOND) {
-        $match[0] = (string)$this->nanoseconds();
+        $match[0] = $this->nanoseconds();
       }
       return $match[0];
     }, $format);
@@ -89,13 +89,12 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
       $nano_diff = static::NANOSECONDS - $nano_diff;
       $invert_result = 1;
     }
-    $date_interval = $this_date->diff($other_date);
+    $date_interval = $this_date->diff($other_date, $absolute);
 
-    $date_interval_properties = (array)$date_interval;
     /** @var DateTimeNanosecondInterval $date_time_nanosecond_interval */
-    $date_time_nanosecond_interval = DateTimeNanosecondInterval::__set_state($date_interval_properties);
+    $date_time_nanosecond_interval = DateTimeNanosecondInterval::__set_state($date_interval);
     $date_time_nanosecond_interval->f = $nano_diff / static::NANOSECONDS;
-    if ($invert_result !== null) {
+    if ($invert_result !== null && !$absolute) {
       $date_time_nanosecond_interval->invert = $invert_result;
     }
 
