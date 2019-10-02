@@ -34,11 +34,18 @@ class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface
     }
 
     $fractional_seconds = $match[2] . $match[3];
-    $this->date = sprintf('%s%11.9f%s', $match[1], $this->round($fractional_seconds, 10, 9), $match[4]);
+    $this->date = sprintf('%s%11.9f%s', $match[1], $this->truncate_to_thousand_millionths($fractional_seconds), $match[4]);
   }
 
-  protected function round($value, int $old_precision = 0, int $new_precision = 0) {
-    return floor(round($value * pow(10, $old_precision)) * pow(10, $new_precision - $old_precision)) / pow(10, $new_precision);
+  protected function truncate_to_thousand_millionths(string $fractional_seconds) {
+    return $this->round($fractional_seconds, 9, 10);
+  }
+
+  protected function round($value, int $new_precision = 0, int $old_precision = null) {
+    $old_precision = $old_precision ?? $new_precision;
+    $rounded_to_old_precision_int = round($value * pow(10, $old_precision));
+    $floored_to_new_precision_int = floor($rounded_to_old_precision_int * pow(10, $new_precision - $old_precision));
+    return $floored_to_new_precision_int / pow(10, $new_precision);
   }
 
   public function __wakeup() {

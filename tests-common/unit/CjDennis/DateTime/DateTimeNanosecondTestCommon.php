@@ -54,7 +54,7 @@ trait DateTimeNanosecondTestCommon {
   public function testShouldBeAbleToAccessTheMethodsOfAnUnserialisedDateTimeNanosecondObject() {
     /** @var DateTimeNanosecond $date_time_nanosecond */
     $date_time_nanosecond = unserialize('O:36:"CjDennis\DateTime\DateTimeNanosecond":3:{s:4:"date";s:29:"2021-12-23 23:34:45.123456789";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}');
-    $this->assertSame('2021-12-23 23:34:45.123456789', $date_time_nanosecond->format('Y-m-d H:i:s.X'));
+    $this->assertSame('2021-12-23 23:34:45.123456789', $date_time_nanosecond->format('Y-m-d H:i:s.' . DateTimeNanosecond::FORMAT_NANOSECOND));
   }
 
   public function testShouldFormatADateTimeNanosecondWithMilliseconds() {
@@ -177,19 +177,14 @@ trait DateTimeNanosecondTestCommon {
     $this->assertSame('O:' . $len . ':"' . $fully_qualified_name . '":16:{s:1:"y";i:0;s:1:"m";i:0;s:1:"d";i:0;s:1:"h";i:0;s:1:"i";i:0;s:1:"s";i:' . $s . ';s:1:"f";d:' . $f . ';s:7:"weekday";i:0;s:16:"weekday_behavior";i:0;s:17:"first_last_day_of";i:0;s:6:"invert";i:' . $invert . ';s:4:"days";i:0;s:12:"special_type";i:0;s:14:"special_amount";i:0;s:21:"have_weekday_relative";i:0;s:21:"have_special_relative";i:0;}', serialize($date_time_nanosecond_interval));
   }
 
-  public function testShouldRoundHalfUp() {
+  public function testShouldRoundExactlyHalfUpToTheNextWholeNumber() {
     $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
     $this->assertSame(2.0, $date_time_nanosecond_seam->round_seam(1.5));
   }
 
-  public function testShouldRoundBelowHalfDown() {
+  public function testShouldRoundBelowHalfDownToTheNextWholeNumber() {
     $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
     $this->assertSame(1.0, $date_time_nanosecond_seam->round_seam(1.499999));
-  }
-
-  public function testShouldRoundOneDecimalPlaceUpThenFloorToZeroDecimalPlaces() {
-    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
-    $this->assertSame(1.0, $date_time_nanosecond_seam->round_seam(1.899999, 1));
   }
 
   public function testShouldGetTheNanosecondsFromADateTimeNanosecondObject() {
@@ -210,8 +205,18 @@ trait DateTimeNanosecondTestCommon {
     );
   }
 
-  public function testShouldWholeSeconds() {
+  public function testShouldReturnAFormattedTimeWithWholeSeconds() {
     $date_time_nanosecond_seam = new DateTimeNanosecondSeam('2021-12-23 23:34:45.1234567899');
     $this->assertSame('2021-12-23 23:34:45 UTC', $date_time_nanosecond_seam->whole_second_date_time_seam());
+  }
+
+  public function testShouldRoundANumberDownToThousandMillionths() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
+    $this->assertSame(0.012345678, $date_time_nanosecond_seam->truncate_to_thousand_millionths_seam(0.01234567891));
+  }
+
+  public function testShouldRoundANumberUpToThousandMillionths() {
+    $date_time_nanosecond_seam = new DateTimeNanosecondSeam();
+    $this->assertSame(0.012345679, $date_time_nanosecond_seam->truncate_to_thousand_millionths_seam(0.01234567899));
   }
 }
