@@ -7,7 +7,6 @@ use DateTimeZone;
 
 class DateTimeNanosecond extends DateTime implements DateTimeNanosecondInterface {
   use HiddenValue;
-  use AdoptedParent;
 
   protected const FRACTIONAL_SECONDS_PATTERN = '/(.*)(\d\.(?>\d{1,7})\d*?)(\d{0,3}(?!\d))(.*)/';
   protected const NANOSECONDS = 1000000000;

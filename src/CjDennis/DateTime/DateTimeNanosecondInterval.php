@@ -6,7 +6,6 @@ use DateInterval;
 
 class DateTimeNanosecondInterval extends DateInterval {
   use HiddenValue;
-  use AdoptedParent;
 
   public $y;  // year
   public $m;  // month
