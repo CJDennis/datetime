@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CJDennis/hidden-value.git",
-                "reference": "0d29ac24a000732ab3c7b401666634efaaf398d8"
+                "reference": "9b69a4690fc85e7482001be9308e4be8cea5c898"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CJDennis/hidden-value/zipball/0d29ac24a000732ab3c7b401666634efaaf398d8",
-                "reference": "0d29ac24a000732ab3c7b401666634efaaf398d8",
+                "url": "https://api.github.com/repos/CJDennis/hidden-value/zipball/9b69a4690fc85e7482001be9308e4be8cea5c898",
+                "reference": "9b69a4690fc85e7482001be9308e4be8cea5c898",
                 "shasum": ""
             },
             "require-dev": {
@@ -35,7 +35,7 @@
                 "MIT"
             ],
             "description": "Allows storing pseudo class properties as values that are not dumpable, serialisable, or accessible from child classes",
-            "time": "2019-11-22T03:57:17+00:00"
+            "time": "2019-11-22T04:58:28+00:00"
         }
     ],
     "packages-dev": [
