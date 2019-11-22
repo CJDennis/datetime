@@ -1,9 +1,9 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
 use PHPUnit\Framework\TestCase;
 
-/** @covers \CjDennis\DateTime\DateTimeNanosecondInterval */
+/** @covers \CJDennis\DateTime\DateTimeNanosecondInterval */
 class DateTimeNanosecondIntervalTest extends TestCase {
   protected function setUp(): void {
     $this->_before();

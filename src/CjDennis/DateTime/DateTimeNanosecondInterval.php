@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused */
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
-use CjDennis\HiddenValue\HiddenValue;
+use CJDennis\HiddenValue\HiddenValue;
 use DateInterval;
 
 class DateTimeNanosecondInterval extends DateInterval {

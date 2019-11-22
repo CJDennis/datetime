@@ -1,11 +1,11 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CjDennis\DateTime\DateTimeNanosecond
- * @uses \CjDennis\DateTime\DateTimeNanosecondInterval
+ * @covers \CJDennis\DateTime\DateTimeNanosecond
+ * @uses \CJDennis\DateTime\DateTimeNanosecondInterval
  */
 class DateTimeNanosecondTest extends TestCase {
   protected function setUp(): void {

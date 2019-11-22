@@ -12,9 +12,9 @@
         "infection/infection": "0.14.1"
     },
     "autoload": {
-        "psr-4": {"CjDennis\\DateTime\\": "src/CjDennis/DateTime/"}
+        "psr-4": {"CJDennis\\DateTime\\": "src/CJDennis/DateTime/"}
     },
     "autoload-dev": {
-        "psr-4": {"CjDennis\\DateTime\\": "tests-common/unit/CjDennis/DateTime/"}
+        "psr-4": {"CJDennis\\DateTime\\": "tests-common/unit/CJDennis/DateTime/"}
     }
 }

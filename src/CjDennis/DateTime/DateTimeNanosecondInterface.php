@@ -1,5 +1,5 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
 interface DateTimeNanosecondInterface {
   const FORMAT_NANOSECOND = 'X';

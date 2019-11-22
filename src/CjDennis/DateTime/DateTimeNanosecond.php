@@ -1,7 +1,7 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
-use CjDennis\HiddenValue\HiddenValue;
+use CJDennis\HiddenValue\HiddenValue;
 use DateTime;
 use DateTimeZone;
 

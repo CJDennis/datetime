@@ -1,5 +1,5 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
 use Codeception\Test\Unit;
 use UnitTester;

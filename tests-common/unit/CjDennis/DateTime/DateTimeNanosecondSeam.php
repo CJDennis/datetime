@@ -1,5 +1,5 @@
 <?php
-namespace CjDennis\DateTime;
+namespace CJDennis\DateTime;
 
 class DateTimeNanosecondSeam extends DateTimeNanosecond {
   public function round_seam(float $value, int $new_precision = 0, int $old_precision = 0) {
